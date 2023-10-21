@@ -3,9 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Button Counter</title>
+    <style>
+        * { font-family: sans-serif; }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column; /* Stack buttons vertically */
+            align-items: center; /* Center the buttons horizontally */
+        }
+
+        .button {
+            width: 300px;
+            height: 300px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 36px;
+            margin: 10px 0; /* Add margin to separate the buttons vertically */
+        }
+
+        .red-button {
+            background-color: red;
+            color: white;
+        }
+
+        .blue-button {
+            background-color: blue;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-    
+    <div class="button-container">
+        <button id="redButton" class="button red-button" type="button">Red (0)</button>
+        <button id="blueButton" class="button blue-button" type="button">Blue (0)</button>
+    </div>
+
+    <script>
+        const redButton = document.getElementById('redButton');
+        const blueButton = document.getElementById('blueButton');
+        
+        let redCount = 0;
+        let blueCount = 0;
+        let redCanClick = true;
+        let blueCanClick = true;
+
+        function enableRedClick() {
+            redCanClick = true;
+            redButton.disabled = false;
+        }
+
+        function enableBlueClick() {
+            blueCanClick = true;
+            blueButton.disabled = false;
+        }
+
+        redButton.addEventListener('click', function() {
+            if (redCanClick) {
+                redCount++;
+                redButton.innerText = `Red (${redCount})`;
+                redCanClick = false;
+                redButton.disabled = true;
+                setTimeout(enableRedClick, 30000); // Re-enable the red button after a 30-second delay
+            }
+        });
+
+        blueButton.addEventListener('click', function() {
+            if (blueCanClick) {
+                blueCount++;
+                blueButton.innerText = `Blue (${blueCount})`;
+                blueCanClick = false;
+                blueButton.disabled = true;
+                setTimeout(enableBlueClick, 30000); // Re-enable the blue button after a 30-second delay
+            }
+        });
+    </script>
 </body>
 </html>
